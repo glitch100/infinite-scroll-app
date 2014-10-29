@@ -35,7 +35,8 @@ namespace Assets.Scripts
                     {
                         var projGo = (GameObject)Instantiate(Projectile, transform.position + transform.forward, Quaternion.identity);
                         var projComponent = projGo.GetComponentInChildren<Projectile>();
-                        projComponent.Point = enemy.transform.position;
+                        projComponent.MovementSpeed = 9f;
+                        projComponent.Point = enemy.transform;
                     }
                 }
             }

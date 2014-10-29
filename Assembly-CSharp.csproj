@@ -51,8 +51,11 @@
     <Compile Include="Assets\Scripts\DeathBar.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Powerup.cs" />
+    <Compile Include="Assets\Scripts\Unapplied\ISpawner.cs" />
     <Compile Include="Assets\Scripts\IWeapon.cs" />
     <Compile Include="Assets\Scripts\LockedCameraScript.cs" />
+    <Compile Include="Assets\Scripts\PowerupSpawner.cs" />
     <Compile Include="Assets\Scripts\Unapplied\Interfaces\ILiving.cs" />
     <Compile Include="Assets\Scripts\Unapplied\Interfaces\IExpirable.cs" />
     <Compile Include="Assets\Scripts\LevelBlock.cs" />

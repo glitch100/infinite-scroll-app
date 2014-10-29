@@ -12,5 +12,7 @@ namespace Assets.Scripts.Unapplied
         public static string Obstacle { get { return "Obstacle"; } }
         public static string BlockGroup { get { return "BlockGroup"; } }
         public static string Block { get { return "Block"; } }
+        public static string PowerUp { get { return "PowerUp"; } }
+        public static string Floor { get { return "Floor"; } }
     }
 }

@@ -5,6 +5,7 @@
         float TimeAlive { get; set; }
         float ExpiryTime { get; set; }
         void Expire();
+        void Die();
 
     }
 }

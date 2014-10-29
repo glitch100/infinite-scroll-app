@@ -10,6 +10,12 @@ public class DeathBar : MonoBehaviour
 	
 	}
 
+    void OnColliderEnter(Collision other)
+    {
+        Debug.Log("COLLIDER");
+        Destroy(other.gameObject);
+    }
+
     void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == Tags.Player)
@@ -21,7 +27,10 @@ public class DeathBar : MonoBehaviour
         }
         else 
         {
-            Destroy(col.transform.parent.gameObject);
+            if (col.gameObject.tag != Tags.Floor)
+            {
+                Destroy(col.transform.parent.gameObject);     
+            }
         }
 
     }

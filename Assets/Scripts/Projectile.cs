@@ -8,11 +8,12 @@ namespace Assets.Scripts
     public class Projectile : MonoBehaviour, IExpirable
     {
         private GameManager _gameManager;
-        public Vector3 Point;
+        public Transform Point;
+        public bool PlayerProj;
         public float TimeAlive { get; set; }
         public float ExpiryTime { get; set; }
         public float MovementSpeed;
-
+        private bool _locked;
         void Awake()
         {
             _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -40,23 +41,37 @@ namespace Assets.Scripts
             }
             else
             {
-                Destroy(this);
+                Die();
             }
+        }
+
+        public void Die()
+        {
+            Destroy(transform.parent.gameObject);
         }
 
         void OnTriggerEnter(Collider collision)
         {
-            Debug.Log(collision.gameObject.name);
             if (collision.gameObject.tag.Equals(Tags.Enemy, StringComparison.OrdinalIgnoreCase))
             {
-                Debug.Log("Valid Hit!");
                 _gameManager.KillCount++;
                 Destroy(collision.gameObject);
+                Die();
                 //TODO: Damage enemy
-            }
-            if (collision.gameObject.tag.Equals(Tags.Player, StringComparison.OrdinalIgnoreCase))
+            }else if (collision.gameObject.tag.Equals(Tags.Player, StringComparison.OrdinalIgnoreCase) && !PlayerProj)
             {
-                collision.gameObject.GetComponent<Player>().Lives--;
+                if (!_locked)
+                {
+                    var player = collision.gameObject.GetComponent<Player>();
+                    if (player != null)
+                    {
+                        _locked = true;
+                        collision.gameObject.GetComponent<Player>().Lives -= 1;
+                        Die();
+                        _locked = false;
+                    }
+                }
+
                 //TODO: Damage player          
             }
 

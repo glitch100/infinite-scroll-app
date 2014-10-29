@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.Linq;
+using Assets.Scripts.Unapplied;
 using Assets.Scripts.Unapplied.Interfaces;
 using UnityEditor;
 using UnityEngine;
@@ -69,9 +70,20 @@ namespace Assets.Scripts
                     {
                         var projGo = (GameObject)Instantiate(Projectile, transform.position + transform.forward, Quaternion.identity);
                         var projComponent = projGo.GetComponentInChildren<Projectile>();
-                        projComponent.Point = enemy.transform.position;
+                        projComponent.PlayerProj = true;
+                        projComponent.Point = enemy.transform;
                     }
                 }
+            }
+        }
+
+        void OnTriggerEnter(Collider col)
+        {
+            if (col.tag == Tags.PowerUp)
+            {
+                //TODO: Make generic system
+                Lives += col.gameObject.GetComponent<Powerup>().Value;
+                Destroy(col.transform.parent.gameObject);
             }
         }
 

@@ -1,37 +1,51 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using Assets.Scripts.Unapplied;
 using UnityEngine;
-using System.Collections;
 using Random = System.Random;
 
-public class BlockSpawner : MonoBehaviour
+namespace Assets.Scripts
 {
-    public Transform[] BlocksToSpawn;
-
-    private Random _random;
-    private Transform _blockGroup;
-    void Start()
+    public class BlockSpawner : MonoBehaviour, ISpawner
     {
-        _random = new Random();
-        _blockGroup = GameObject.FindGameObjectWithTag(Tags.BlockGroup).transform;
-    }
+        public Transform[] BlocksToSpawn;
 
-    void Update()
-    {
-        var blocks = GameObject.FindGameObjectsWithTag(Tags.Block).ToList();
-
-        if (blocks.Count < 6)
+        public Random Random { get; set; }
+        private Transform _blockGroup;
+        public bool HaveSpawned { get; set; }
+        void Start()
         {
-            var chance = _random.NextDouble();
-            if (chance > 0.86)
-            {
-                Spawn();
-            }
+            Random = new Random();
+            //TODO: Have a block manager
+            //_blockGroup = GameObject.FindGameObjectWithTag(Tags.BlockGroup).transform;
         }
-    }
 
-    void Spawn()
-    {
-        var block = Instantiate(BlocksToSpawn[_random.Next(0, BlocksToSpawn.Length)], transform.position, Quaternion.identity) as GameObject;
+        private void Update()
+        {
+            var blocks = GameObject.FindGameObjectsWithTag(Tags.Block).ToList();
+
+            if (blocks.Count < 12 && !HaveSpawned)
+            {
+                var chance = Random.NextDouble();
+                if (chance > 0.86)
+                {
+                    Spawn();
+                    HaveSpawned = true;
+                    StartCoroutine(Wait());
+                }
+            }
+
+        }
+
+        public IEnumerator Wait()
+        {
+            yield return new WaitForSeconds(1.1f);
+            HaveSpawned = false;
+        }
+
+        public void Spawn()
+        {
+            var block = Instantiate(BlocksToSpawn[Random.Next(0, BlocksToSpawn.Length)], transform.position, Quaternion.identity) as GameObject;
+        }
     }
 }

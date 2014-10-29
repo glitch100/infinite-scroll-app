@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
         GUI.Label(new Rect(10, 10, 200, 50), string.Format("Kills: {0}", KillCount));
         GUI.Label(new Rect(10, 30, 200, 50), string.Format("Score: {0}", Score));
+        GUI.Label(new Rect(10, 50, 200, 50), string.Format("Lives: {0}", Player.Lives));
 
         if (Player.Dead)
         {
