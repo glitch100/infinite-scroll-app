@@ -52,7 +52,7 @@ namespace Assets.Scripts
 
         void OnTriggerEnter(Collider collision)
         {
-            if (collision.gameObject.tag.Equals(Tags.Enemy, StringComparison.OrdinalIgnoreCase))
+            if (collision.gameObject.tag.Equals(Tags.Enemy, StringComparison.OrdinalIgnoreCase) && PlayerProj)
             {
                 _gameManager.KillCount++;
                 Destroy(collision.gameObject);

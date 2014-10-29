@@ -35,7 +35,7 @@ namespace Assets.Scripts
                     {
                         var projGo = (GameObject)Instantiate(Projectile, transform.position + transform.forward, Quaternion.identity);
                         var projComponent = projGo.GetComponentInChildren<Projectile>();
-                        projComponent.MovementSpeed = 9f;
+                        projComponent.MovementSpeed = 15f;
                         projComponent.Point = enemy.transform;
                     }
                 }
@@ -46,7 +46,7 @@ namespace Assets.Scripts
         private Player GetPlayer()
         {
             var player = GameObject.FindGameObjectWithTag(Tags.Player);
-            if (player != null && Vector3.Distance(transform.position,player.transform.position) < 4.3f)
+            if (player != null && Vector3.Distance(transform.position,player.transform.position) < 8.3f)
             {
                 RaycastHit raycastHit;
                 if (Physics.Linecast(transform.position, player.transform.position, out raycastHit))
