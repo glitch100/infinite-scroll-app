@@ -2,28 +2,40 @@
 using System.Collections;
 using System.IO;
 using System.Linq;
+using Assets.Scripts.Unapplied.Interfaces;
 using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IWeapon, ILiving
     {
         private Rigidbody _rigidbody;
         private Light _bottomLight;
         private float lightIntensity = 10f;
 
-        public bool Firing = false;
-        public bool WeaponLocked = false;
-        public float FireRate = 0.7f;
+        public int HealthPoints { get; set; }
+        public int MaxHealthPoints { get; set; }
 
+        public bool Firing { get; set; }
+        public bool Falling = false;
+        public bool WeaponLocked = false;
+        public float FireRate { get; set; }
+        public const int MaxSpeed = 27;
         public GameObject Projectile;
+        public bool Dead;
+        private GameManager _gameManager;
+        public  int Lives;
 
         void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
             _bottomLight = GetComponentInChildren<Light>();
+            _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             _bottomLight.enabled = false;
+            _rigidbody.freezeRotation = true;
+            FireRate = 0.7f;
+            Lives = 5;
         }
 
         void Start()
@@ -31,9 +43,21 @@ namespace Assets.Scripts
 
         }
 
+        void Update()
+        {
+            if (Lives <= 0)
+            {
+                Dead = true;
+                Debug.Break();
+            }
+        }
+
         void FixedUpdate()
         {
             Movement();
+
+            Falling = _rigidbody.velocity.y < -20f;
+
             var enemy = GetEnemy();
             if (enemy != null)
             {
@@ -51,19 +75,9 @@ namespace Assets.Scripts
             }
         }
 
-        IEnumerator FireWeapon()
-        {
-            if (!Firing)
-            {
-                Firing = true;
-                yield return new WaitForSeconds(FireRate);
-                Firing = false;
-            }
-        }
-
         private GameObject GetEnemy()
         {
-            var visionRadius = Physics.OverlapSphere(transform.up + transform.position, 3);
+            var visionRadius = Physics.OverlapSphere(transform.up + transform.position, 5);
             if (visionRadius != null)
             {
                 var validObjects = visionRadius.Where(go => go.tag == "Enemy");
@@ -96,6 +110,10 @@ namespace Assets.Scripts
                 var targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 targetPos.z = transform.position.z;
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, 4.5f * Time.deltaTime);
+                if (rigidbody.velocity.magnitude > 27)
+                {
+                    rigidbody.velocity = rigidbody.velocity.normalized*MaxSpeed;
+                }
                 
             }
             else
@@ -105,5 +123,16 @@ namespace Assets.Scripts
 
             }
         }
+
+        public IEnumerator FireWeapon()
+        {
+            if (!Firing)
+            {
+                Firing = true;
+                yield return new WaitForSeconds(FireRate);
+                Firing = false;
+            }
+        }
+
     }
 }

@@ -7,12 +7,18 @@ namespace Assets.Scripts
 {
     public class Projectile : MonoBehaviour, IExpirable
     {
+        private GameManager _gameManager;
         public Vector3 Point;
         public float TimeAlive { get; set; }
         public float ExpiryTime { get; set; }
         public float MovementSpeed;
 
-        public void Start()
+        void Awake()
+        {
+            _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        }
+
+        void Start()
         {
             transform.LookAt(Point);
             rigidbody.freezeRotation = true;
@@ -21,7 +27,7 @@ namespace Assets.Scripts
             InvokeRepeating("Expire",0,1.0f);
         }
 
-        public void FixedUpdate()
+        void FixedUpdate()
         {
             transform.Translate(0, 0, MovementSpeed * Time.deltaTime);
         }
@@ -40,14 +46,18 @@ namespace Assets.Scripts
 
         void OnTriggerEnter(Collider collision)
         {
-            if (collider.gameObject.tag.Equals(Tags.Enemy))
+            Debug.Log(collision.gameObject.name);
+            if (collision.gameObject.tag.Equals(Tags.Enemy, StringComparison.OrdinalIgnoreCase))
             {
                 Debug.Log("Valid Hit!");
+                _gameManager.KillCount++;
+                Destroy(collision.gameObject);
                 //TODO: Damage enemy
             }
-            if (!collision.gameObject.tag.Equals(Tags.Player))
+            if (collision.gameObject.tag.Equals(Tags.Player, StringComparison.OrdinalIgnoreCase))
             {
-                Destroy(transform.parent.gameObject);               
+                collision.gameObject.GetComponent<Player>().Lives--;
+                //TODO: Damage player          
             }
 
         }

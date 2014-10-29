@@ -10,5 +10,7 @@ namespace Assets.Scripts.Unapplied
         public static string Player {get { return "Player"; }}
         public static string Enemy { get { return "Enemy"; } }
         public static string Obstacle { get { return "Obstacle"; } }
+        public static string BlockGroup { get { return "BlockGroup"; } }
+        public static string Block { get { return "Block"; } }
     }
 }
