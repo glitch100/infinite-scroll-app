@@ -25,3 +25,9 @@ void, as there is nothing else to do in this colourless, barren locale.
 
 Gameplay Demo:
 https://www.youtube.com/watch?v=46y4MvXbE2w&feature=youtu.be
+
+Online Demo (hosted on G Drive)
+http://goo.gl/G63AuD
+
+Other Project Demo - HIERARCHY (v0.1)
+http://goo.gl/LjpfVt
