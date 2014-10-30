@@ -23,7 +23,7 @@ public class DeathBar : MonoBehaviour
             var player = col.gameObject.GetComponent<Player>();
             player.Dead = true;
             Debug.Log("Game Over!");
-            Debug.Break();
+            Time.timeScale = 0;
         }
         else 
         {

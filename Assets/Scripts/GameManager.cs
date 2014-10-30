@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
         if (Player.Dead)
         {
             GUI.Label(new Rect(60, 100, 200, 50), string.Format("Final Score: Kills * Score = {0}", KillCount * Player.Score));
+            GUI.Label(new Rect(80, 140, 200, 50), string.Format("PRESS ENTER TO RESTART"));
         }
 
         GUILayout.FlexibleSpace();
@@ -35,6 +36,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            Application.LoadLevel(0);
+        }  
 
         var d = Vector3.Distance(Floor.position, Player.transform.position);
         if (d < 10)

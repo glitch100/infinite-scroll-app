@@ -48,7 +48,7 @@ namespace Assets.Scripts
             if (Lives <= 0)
             {
                 Dead = true;
-                Debug.Break();
+                Time.timeScale = 0;
             }
         }
 

@@ -10,6 +10,7 @@ Create different enemies
 
 Controls::
 Right Mouse Click : Enable Amazing Jetpack, and move mouse left/right to drift.
+On Death: Press ENTER to restart
 
 Information::
 *Powerups - a familiar friend or deadly foe : BOMB for losing lives, SCORE boost, and 1UPs
@@ -25,11 +26,11 @@ seemingly happy looking cubes on them. Beware, for these cubes are evil and must
 void, as there is nothing else to do in this colourless, barren locale.
 
 Gameplay Demo:
-(Old version not including bombs,extra difficulty, etc)
+(NEW VERSION)
 https://www.youtube.com/watch?v=46y4MvXbE2w&feature=youtu.be
 
 Online Demo (hosted on G Drive)
-(Old version not including bombs,extra difficulty, etc)
+(NEW VERSION)
 http://goo.gl/G63AuD
 
 Other Project Demo - HIERARCHY (v0.1)
