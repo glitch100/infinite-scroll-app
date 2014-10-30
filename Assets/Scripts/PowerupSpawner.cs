@@ -11,6 +11,8 @@ namespace Assets.Scripts
         public Transform PowerUpGameObject;
         public bool HaveSpawned { get; set; }
         public Random Random { get; set; }
+        public double Chance;
+        public float Timer;
 
         void Start()
         {
@@ -22,7 +24,7 @@ namespace Assets.Scripts
             if (!HaveSpawned)
             {
                 var chance = Random.NextDouble();
-                if (chance > 0.71)
+                if (chance > Chance)
                 {
                     Spawn();
                     HaveSpawned = true;
@@ -33,14 +35,17 @@ namespace Assets.Scripts
 
         public IEnumerator Wait()
         {
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(Timer);
             HaveSpawned = false;
         }
 
         public void Spawn()
         {
             var spawnPos = UnityEngine.Random.Range(-5.5f, 2.1f);
-            Instantiate(PowerUpGameObject, new Vector3(spawnPos, transform.position.y, transform.position.z), Quaternion.identity);
+            if (PowerUpGameObject != null)
+            {
+                Instantiate(PowerUpGameObject, new Vector3(spawnPos, transform.position.y, transform.position.z), Quaternion.identity);
+            }
         }
     }
 }

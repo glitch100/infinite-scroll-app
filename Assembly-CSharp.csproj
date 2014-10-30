@@ -52,6 +52,7 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Powerup.cs" />
+    <Compile Include="Assets\Scripts\ScoreBoost.cs" />
     <Compile Include="Assets\Scripts\Unapplied\ISpawner.cs" />
     <Compile Include="Assets\Scripts\IWeapon.cs" />
     <Compile Include="Assets\Scripts\LockedCameraScript.cs" />

@@ -5,7 +5,6 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
 
-    public int Score;
     public int KillCount;
 
     public Transform Floor;
@@ -19,12 +18,12 @@ public class GameManager : MonoBehaviour
         GUILayout.FlexibleSpace();
 
         GUI.Label(new Rect(10, 10, 200, 50), string.Format("Kills: {0}", KillCount));
-        GUI.Label(new Rect(10, 30, 200, 50), string.Format("Score: {0}", Score));
+        GUI.Label(new Rect(10, 30, 200, 50), string.Format("Score: {0}", Player.Score));
         GUI.Label(new Rect(10, 50, 200, 50), string.Format("Lives: {0}", Player.Lives));
 
         if (Player.Dead)
         {
-            GUI.Label(new Rect(60, 100, 200, 50), string.Format("Final Score: Kills * Score = {0}", KillCount * Score));
+            GUI.Label(new Rect(60, 100, 200, 50), string.Format("Final Score: Kills * Score = {0}", KillCount * Player.Score));
         }
 
         GUILayout.FlexibleSpace();
@@ -40,14 +39,14 @@ public class GameManager : MonoBehaviour
         var d = Vector3.Distance(Floor.position, Player.transform.position);
         if (d < 10)
         {
-            Score = 10;
-        }else if (d < Score)
+            Player.Score = 10;
+        }else if (d < Player.Score)
         {
             return;
         }
         else
         {
-            Score = (int) d;
+            Player.Score = (int)d;
         }
 
 

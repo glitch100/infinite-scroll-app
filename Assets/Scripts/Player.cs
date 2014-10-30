@@ -3,6 +3,7 @@ using System.Linq;
 using Assets.Scripts.Unapplied;
 using Assets.Scripts.Unapplied.Interfaces;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace Assets.Scripts
 {
@@ -24,6 +25,7 @@ namespace Assets.Scripts
         public bool Dead;
         private GameManager _gameManager;
         public  int Lives;
+        public int Score;
 
         void Awake()
         {
@@ -79,7 +81,16 @@ namespace Assets.Scripts
             if (col.tag == Tags.PowerUp)
             {
                 //TODO: Make generic system
-                Lives += col.gameObject.GetComponent<Powerup>().Value;
+                var powerup = col.gameObject.GetComponent<Powerup>();
+                if (powerup.Type == PowerupType.Life)
+                {
+                   Lives += powerup.Value;
+                }
+                else if (powerup.Type == PowerupType.Score)
+                {
+                    Score += powerup.Value;
+                }
+                
                 Destroy(col.transform.parent.gameObject);
             }
         }
