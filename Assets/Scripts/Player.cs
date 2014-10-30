@@ -45,7 +45,7 @@ namespace Assets.Scripts
 
         void Update()
         {
-            if (Lives <= 0)
+            if (Lives <= 0 && !Dead)
             {
                 Dead = true;
                 Time.timeScale = 0;

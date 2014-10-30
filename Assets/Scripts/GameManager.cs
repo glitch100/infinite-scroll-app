@@ -38,7 +38,9 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            Application.LoadLevel(0);
+            Time.timeScale = 1;
+            //Application.LoadLevel(1);
+            Application.LoadLevel(Application.loadedLevel);
         }  
 
         var d = Vector3.Distance(Floor.position, Player.transform.position);
