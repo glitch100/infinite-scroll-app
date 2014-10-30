@@ -41,7 +41,7 @@ namespace Assets.Scripts
 
         public void Spawn()
         {
-            var spawnPos = UnityEngine.Random.Range(-5.5f, 2.1f);
+            var spawnPos = UnityEngine.Random.Range(-10.5f, 10.1f);
             if (PowerUpGameObject != null)
             {
                 Instantiate(PowerUpGameObject, new Vector3(spawnPos, transform.position.y, transform.position.z), Quaternion.identity);

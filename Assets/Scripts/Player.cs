@@ -34,8 +34,8 @@ namespace Assets.Scripts
             _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             _bottomLight.enabled = false;
             _rigidbody.freezeRotation = true;
-            FireRate = 0.7f;
-            Lives = 5;
+            FireRate = 0.5f;
+            Lives = 3;
         }
 
         void Start()
@@ -125,12 +125,12 @@ namespace Assets.Scripts
                 var mouseMovement = Input.mousePosition;
                 _bottomLight.enabled = true;
                 _bottomLight.intensity = lightIntensity;
-                _rigidbody.AddForce((Vector3.up * 18), ForceMode.Acceleration);
+                _rigidbody.AddForce((Vector3.up * 15), ForceMode.Acceleration);
 
                 var targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 targetPos.z = transform.position.z;
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, 4.5f * Time.deltaTime);
-                if (rigidbody.velocity.magnitude > 27)
+                if (rigidbody.velocity.magnitude > 20)
                 {
                     rigidbody.velocity = rigidbody.velocity.normalized*MaxSpeed;
                 }

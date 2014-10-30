@@ -39,7 +39,7 @@ namespace Assets.Scripts
 
         public IEnumerator Wait()
         {
-            yield return new WaitForSeconds(1.1f);
+            yield return new WaitForSeconds(1.2f);
             HaveSpawned = false;
         }
 
